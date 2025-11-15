@@ -16,10 +16,10 @@ const PORT = 3000;
 // Define the base URL for our Python ML API servers
 // We'll add more as we build them
 const ML_API_BASE_URL = {
-    xgboost: 'http://127.0.0.1:8000', // Default FastAPI port
-    randomforest: 'http://127.0.0.1:8001',
+    xgboost: 'https://xg-boost-model.onrender.com', // Default FastAPI port
+    randomforest: 'https://randomforestmodel-latest.onrender.com',
     // Add other model URLs here later, e.g.:
-    lstm: 'http://127.0.0.1:8002',
+    lstm: 'https://lstm-model-njtw.onrender.com',
     // catboost: 'http://127.0.0.1:8002',
 };
 
