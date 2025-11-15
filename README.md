@@ -113,8 +113,3 @@ This provides clear signals to the frontend so the UI can show meaningful messag
 
 ---
 
-If you'd like, I can:
-- Add environment variable support and a `.env.example` file.
-- Add unit tests and basic integration checks for the routing behavior.
-
-Made with ❤️ — Traffic Flow Prediction Platform
