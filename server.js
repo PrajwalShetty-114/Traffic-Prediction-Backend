@@ -21,7 +21,7 @@ const ML_API_BASE_URL = {
     lstm: 'https://lstm-model-njtw.onrender.com',
     // hybrid: 'https://xg-boost-model.onrender.com',
     catboost: 'https://catboost-model.onrender.com',
-    kmeans: 'http://127.0.0.1:8004'
+    kmeans: 'https://k-means-clustering-jl4q.onrender.com'
 };
 
 // 3. SETTING THE RULES (MIDDLEWARE)
