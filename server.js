@@ -21,8 +21,8 @@ const ML_API_BASE_URL = {
     // Add other model URLs here later, e.g.:
     lstm: 'https://lstm-model-njtw.onrender.com',
     // Temporary fallback: if 'hybrid' is requested but not available, route to xgboost for now
-    hybrid: 'https://xg-boost-model.onrender.com',
-    // catboost: 'http://127.0.0.1:8002',
+    // hybrid: 'https://xg-boost-model.onrender.com',
+    catboost: 'https://catboost-model.onrender.com'
 };
 
 // 3. SETTING THE RULES (MIDDLEWARE)
