@@ -18,11 +18,10 @@ const PORT = 3000;
 const ML_API_BASE_URL = {
     xgboost: 'https://xg-boost-model.onrender.com', // Default FastAPI port
     randomforest: 'https://randomforestmodel-latest.onrender.com',
-    // Add other model URLs here later, e.g.:
     lstm: 'https://lstm-model-njtw.onrender.com',
-    // Temporary fallback: if 'hybrid' is requested but not available, route to xgboost for now
     // hybrid: 'https://xg-boost-model.onrender.com',
-    catboost: 'https://catboost-model.onrender.com'
+    catboost: 'https://catboost-model.onrender.com',
+    kmeans: 'http://127.0.0.1:8004'
 };
 
 // 3. SETTING THE RULES (MIDDLEWARE)
