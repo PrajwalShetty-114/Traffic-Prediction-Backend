@@ -20,6 +20,8 @@ const ML_API_BASE_URL = {
     randomforest: 'https://randomforestmodel-latest.onrender.com',
     // Add other model URLs here later, e.g.:
     lstm: 'https://lstm-model-njtw.onrender.com',
+    // Temporary fallback: if 'hybrid' is requested but not available, route to xgboost for now
+    hybrid: 'https://xg-boost-model.onrender.com',
     // catboost: 'http://127.0.0.1:8002',
 };
 
@@ -69,6 +71,7 @@ app.post('/api/predict', async (req, res) => {
 
     } catch (error) {
         console.error('Error calling Python API from simple route:', error.message);
+        if (error.response) console.error('Downstream response data:', error.response.data);
         // Determine the error type for a better response
         if (error.response) {
             // The request was made and the server responded with a status code
@@ -77,7 +80,8 @@ app.post('/api/predict', async (req, res) => {
             console.error("Python API Error Status:", error.response.status);
             res.status(error.response.status).json({
                 error: "Prediction service failed",
-                detail: error.response.data.detail || 'Unknown error from ML service'
+                // Forward the whole downstream payload where possible for easier debugging
+                detail: error.response.data || error.response.data.detail || 'Unknown error from ML service'
             });
         } else if (error.request) {
             // The request was made but no response was received
@@ -132,7 +136,7 @@ app.post('/api/expert-predict', async (req, res) => {
             console.error("Python API Error Status:", error.response.status);
             res.status(error.response.status).json({
                 error: `Prediction service for model ${requestedModel} failed`,
-                detail: error.response.data.detail || 'Unknown error from ML service'
+                detail: error.response.data || error.response.data.detail || 'Unknown error from ML service'
             });
         } else if (error.request) {
             console.error("No response received from Python API:", error.request);
@@ -142,6 +146,29 @@ app.post('/api/expert-predict', async (req, res) => {
             res.status(500).json({ error: "Internal Server Error", detail: error.message });
         }
     }
+});
+
+
+/**
+ * ROUTE: Health check for configured ML services
+ * Method: GET
+ * Path: /api/health
+ * Purpose: Quickly verify reachability of configured ML microservices.
+ */
+app.get('/api/health', async (req, res) => {
+    const results = {};
+    const keys = Object.keys(ML_API_BASE_URL);
+    await Promise.all(keys.map(async (k) => {
+        const url = ML_API_BASE_URL[k];
+        try {
+            // A simple GET to the base URL (may return HTML or JSON depending on service)
+            const r = await axios.get(url, { timeout: 3000 });
+            results[k] = { ok: true, status: r.status };
+        } catch (err) {
+            results[k] = { ok: false, message: err.message, status: err.response ? err.response.status : null };
+        }
+    }));
+    res.json({ services: results });
 });
 
 
