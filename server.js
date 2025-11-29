@@ -18,10 +18,10 @@ const PORT = 3000;
 const ML_API_BASE_URL = {
     xgboost: 'https://xg-boost-model.onrender.com', // Default FastAPI port
     randomforest: 'https://randomforestmodel-latest.onrender.com',
-    lstm: 'https://lstm-model-njtw.onrender.com',
-    // hybrid: 'https://xg-boost-model.onrender.com',
+    lstm: 'https://lstm-model-7mhf.onrender.com',
     catboost: 'https://catboost-model.onrender.com',
-    kmeans: 'https://k-means-clustering-jl4q.onrender.com'
+    kmeans: 'https://k-means-clustering-jl4q.onrender.com',
+    hybrid: 'https://hybrid-model.onrender.com',
 };
 
 // 3. SETTING THE RULES (MIDDLEWARE)
